@@ -1,0 +1,8 @@
+%include "syscalls.inc"
+%include "malloc.inc"
+%include "memory.inc"
+%include "stdio.inc"
+%include "errno.inc"
+%include "string.inc"
+%include "thread.inc"
+%include "stdarg.inc"
