@@ -1,3 +1,6 @@
+%ifndef _THREAD_INC
+%define _THREAD_INC
+
 ;QWORD long_pointer __errno_location()
 extern __errno_location
 ;QWORD prog_ptr __tls_ptr_location()
@@ -15,3 +18,5 @@ extern thread_join
 extern thread_join_multiple
 ;QWORD result thread_destroy(QWORD thread_pointer)
 extern thread_destroy
+
+%endif

@@ -1,3 +1,6 @@
+%ifndef _STDARG_INC
+%define _STDARG_INC
+
 struc va_list
     .index: resq 1
     .regs: resq 5
@@ -62,3 +65,5 @@ extern va_next
 extern va_copy
 ;VOID va_end(QWORD va_list)
 extern va_end
+
+%endif

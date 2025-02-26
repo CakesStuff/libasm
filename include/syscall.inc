@@ -1,3 +1,6 @@
+%ifndef _SYSCALL_INC
+%define _SYSCALL_INC
+
 %define __NR_read	 0
 %define __NR_write	 1
 %define __NR_open	 2
@@ -718,3 +721,5 @@
 %define SYS_waitid	 __NR_waitid
 %define SYS_write	 __NR_write
 %define SYS_writev	 __NR_writev
+
+%endif

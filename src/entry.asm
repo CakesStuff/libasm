@@ -8,7 +8,7 @@ bits 64
 %define ARCH_SET_FS 0x1002
 
 global LIB_VERSION
-LIB_VERSION equ 0x00_00_01
+LIB_VERSION equ 0x00_00_02
 
 section .text
 extern TLS_SIZE

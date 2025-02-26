@@ -1,3 +1,6 @@
+%ifndef _SYSCALLS_INC
+%define _SYSCALLS_INC
+
 ;NORETURN exit(DWORD exit_code)
 extern exit
 ;NORETURN _exit(QWORD exit_code)
@@ -8,3 +11,5 @@ extern syscall
 extern read
 ;QWORD write_result write(QWORD fd, QWORD buffer_pointer, QWORD write_amount)
 extern write
+
+%endif

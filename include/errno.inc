@@ -1,3 +1,6 @@
+%ifndef _ERRNO_INC
+%define _ERRNO_INC
+
 ;QWORD string_pointer strerror(QWORD errno)
 extern strerror
 ;VOID perror(QWORD print_string_pointer)
@@ -137,3 +140,5 @@ extern perror
 %define ERFKILL	 132
 %define EHWPOISON	 133
 %define ENOTSUP	 EOPNOTSUPP
+
+%endif
