@@ -7,6 +7,7 @@ bits 64
 %define MAGIC_NUM 299792458
 
 %include "memory.inc"
+%include "mutex.inc"
 
 section .data
 header:
@@ -15,6 +16,7 @@ header:
 .allocation_count: dq 0
 .heap_size: dq 0
 .heap_addr: dq 0
+.lock: dq 0
 
 section .text
 single_bubblesort:
@@ -281,6 +283,9 @@ remove_invalid_allocation_if_present:
     ret
 
 init_heap:
+    mov rdi, header.lock
+    call mutex_lock
+
     mov rax, SYS_brk
     mov rdi, 0
     syscall
@@ -303,6 +308,9 @@ init_heap:
     mov rax, QWORD [header.heap_addr]
     mov QWORD [header.allocations], rax
     mov QWORD [header.allocation_count], 1
+    
+    mov rdi, header.lock
+    call mutex_unlock
     ret
 
 global malloc
@@ -343,6 +351,9 @@ realloc:
     je .next
     call init_heap
 .next:
+    mov rdi, header.lock
+    call mutex_lock
+
     mov dst_entry, 0
     mov rdi, ptr
     call find_allocation
@@ -397,6 +408,10 @@ realloc:
     mov rax, next_addr
 
 .end:
+    push rax
+    mov rdi, header.lock
+    call mutex_unlock
+    pop rax
     %undef ptr
     %undef size
     %undef dst_entry
@@ -413,6 +428,10 @@ free:
     ret
 
 .next:
+    push rdi
+    mov rdi, header.lock
+    call mutex_lock
+    pop rdi
     call find_allocation
     cmp rax, 0
     jne .next2
@@ -447,4 +466,6 @@ free:
     jmp .while
 
 .end:
+    mov rdi, header.lock
+    call mutex_unlock
     ret
